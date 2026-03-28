@@ -73,18 +73,27 @@ export class FarmVaultsService {
 
     // Progressive growth based on time elapsed in the cycle
     const progressFactor = Math.min(1, diffDays / durationDays);
+    const progressPercentage = Math.round(progressFactor * 100);
     const currentGrowth = balance * yieldRate * progressFactor;
     const totalProjectedGrowth = balance * yieldRate;
+
+    const milestones = [
+      { name: 'Seed Funding', target: 25, achieved: progressPercentage >= 25 },
+      { name: 'Early Growth', target: 50, achieved: progressPercentage >= 50 },
+      { name: 'Mid-Season Bloom', target: 75, achieved: progressPercentage >= 75 },
+      { name: 'Harvest Ready', target: 100, achieved: progressPercentage >= 100 },
+    ];
 
     return {
       ...vault,
       projections: {
         daysElapsed: diffDays,
         daysRemaining: Math.max(0, durationDays - diffDays),
-        progressPercentage: Math.round(progressFactor * 100),
+        progressPercentage,
         currentGrowth: Number(currentGrowth.toFixed(2)),
         totalProjectedGrowth: Number(totalProjectedGrowth.toFixed(2)),
         estimatedTotalAtMaturity: Number((balance + totalProjectedGrowth).toFixed(2)),
+        milestones,
       }
     };
   }

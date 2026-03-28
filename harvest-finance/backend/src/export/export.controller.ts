@@ -28,7 +28,49 @@ export class ExportController {
   constructor(private readonly exportService: ExportService) {}
 
   /**
-   * User-side export: GET /api/v1/export/users/:userId/transactions
+   * User-side export: GET /api/v1/export/users/:userId/vault/export
+   */
+  @Get('users/:userId/vault/export')
+  @ApiOperation({ summary: 'Export vault data for a user' })
+  @ApiQuery({ name: 'format', enum: ['csv', 'excel'], required: true })
+  @ApiResponse({ status: 200, description: 'File download initiated' })
+  async exportUserVault(
+    @Param('userId') userId: string,
+    @Query('format') format: 'csv' | 'excel',
+    @Request() req: any,
+    @Res() res: Response,
+  ) {
+    // Check authorization: user can only export their own data, admins can export anyone
+    if (req.user.id !== userId && req.user.role !== UserRole.ADMIN) {
+      throw new ForbiddenException('You can only export your own vault data');
+    }
+
+    const data = await this.exportService.getTransactionData(userId);
+    
+    if (format === 'excel') {
+      const buffer = await this.exportService.generateExcel(data);
+      res.setHeader(
+        'Content-Type',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      );
+      res.setHeader(
+        'Content-Disposition',
+        `attachment; filename=vault_export_${userId}_${Date.now()}.xlsx`,
+      );
+      return res.send(buffer);
+    } else {
+      const csv = await this.exportService.generateCsv(data);
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader(
+        'Content-Disposition',
+        `attachment; filename=vault_export_${userId}_${Date.now()}.csv`,
+      );
+      return res.send(csv);
+    }
+  }
+
+  /**
+   * User-side transactions export: GET /api/v1/export/users/:userId/transactions
    */
   @Get('users/:userId/transactions')
   @ApiOperation({ summary: 'Export transaction history for a user' })
@@ -64,6 +106,47 @@ export class ExportController {
       res.setHeader(
         'Content-Disposition',
         `attachment; filename=transactions_${userId}_${Date.now()}.csv`,
+      );
+      return res.send(csv);
+    }
+  }
+
+  /**
+   * Admin-side export: GET /api/v1/export/admin/vault/export
+   */
+  @Get('admin/vault/export')
+  @ApiOperation({ summary: 'Export all vault data (Admin only)' })
+  @ApiQuery({ name: 'format', enum: ['csv', 'excel'], required: true })
+  @ApiResponse({ status: 200, description: 'File download initiated' })
+  async exportAllVaults(
+    @Query('format') format: 'csv' | 'excel',
+    @Request() req: any,
+    @Res() res: Response,
+  ) {
+    // Check admin role
+    if (req.user.role !== UserRole.ADMIN) {
+      throw new ForbiddenException('Only admins can export all vault data');
+    }
+
+    const data = await this.exportService.getTransactionData();
+    
+    if (format === 'excel') {
+      const buffer = await this.exportService.generateExcel(data);
+      res.setHeader(
+        'Content-Type',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      );
+      res.setHeader(
+        'Content-Disposition',
+        `attachment; filename=admin_vault_export_${Date.now()}.xlsx`,
+      );
+      return res.send(buffer);
+    } else {
+      const csv = await this.exportService.generateCsv(data);
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader(
+        'Content-Disposition',
+        `attachment; filename=admin_vault_export_${Date.now()}.csv`,
       );
       return res.send(csv);
     }
