@@ -4,6 +4,7 @@ import { LoggerMiddleware } from './logger/logger.middleware';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CacheModule } from '@nestjs/cache-manager';
+import { ScheduleModule } from '@nestjs/schedule';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { OrdersModule } from './orders/orders.module';
@@ -20,6 +21,7 @@ import { AdminModule } from './admin/admin.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { ExportModule } from './export/export.module';
 import { FarmVaultsModule } from './farm-vaults/farm-vaults.module';
+import { RealtimeModule } from './realtime/realtime.module';
 import {
   User,
   Order,
@@ -94,6 +96,7 @@ import { CreateFarmVaults1700000000008 } from './database/migrations/17000000000
       ttl: 600,
       max: 100,
     }),
+    ScheduleModule.forRoot(),
     AuthModule,
     UsersModule,
     VaultsModule,
@@ -108,6 +111,7 @@ import { CreateFarmVaults1700000000008 } from './database/migrations/17000000000
     AdminModule,
     ExportModule,
     FarmVaultsModule,
+    RealtimeModule,
     LoggerModule,
   ],
   controllers: [AppController],
