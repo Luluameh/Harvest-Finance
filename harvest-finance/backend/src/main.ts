@@ -13,6 +13,7 @@ async function bootstrap() {
   });
   const customLogger = app.get(CustomLoggerService);
   app.useLogger(customLogger);
+  app.useWebSocketAdapter(new IoAdapter(app));
   app.useGlobalFilters(new HttpExceptionFilter(customLogger));
   app.useGlobalPipes(
     new ValidationPipe({
