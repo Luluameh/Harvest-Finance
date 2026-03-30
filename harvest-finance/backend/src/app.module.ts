@@ -1,7 +1,10 @@
-import { Module } from '@nestjs/common';
+import { Module, MiddlewareConsumer, NestModule } from '@nestjs/common';
+import { LoggerModule } from './logger/logger.module';
+import { LoggerMiddleware } from './logger/logger.middleware';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CacheModule } from '@nestjs/cache-manager';
+import { ScheduleModule } from '@nestjs/schedule';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { OrdersModule } from './orders/orders.module';
@@ -18,6 +21,7 @@ import { AdminModule } from './admin/admin.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { ExportModule } from './export/export.module';
 import { FarmVaultsModule } from './farm-vaults/farm-vaults.module';
+import { RealtimeModule } from './realtime/realtime.module';
 import {
   User,
   Order,
@@ -25,6 +29,7 @@ import {
   Verification,
   CreditScore,
   Vault,
+  VaultDeposit,
   Deposit,
   Notification,
   Achievement,
@@ -62,6 +67,7 @@ import { CreateFarmVaults1700000000008 } from './database/migrations/17000000000
           Verification,
           CreditScore,
           Vault,
+          VaultDeposit,
           Deposit,
           Achievement,
           Reward,
@@ -79,17 +85,18 @@ import { CreateFarmVaults1700000000008 } from './database/migrations/17000000000
           CreateWithdrawals1700000000007,
           CreateFarmVaults1700000000008,
         ],
-        synchronize: false, // Disable auto-sync, use migrations
-        migrationsRun: false, // Run migrations manually
+        synchronize: false,
+        migrationsRun: false,
         logging: configService.get<string>('NODE_ENV') === 'development',
       }),
       inject: [ConfigService],
     }),
     CacheModule.register({
       isGlobal: true,
-      ttl: 600, // 10 minutes
-      max: 100, // maximum number of items in cache
+      ttl: 600,
+      max: 100,
     }),
+    ScheduleModule.forRoot(),
     AuthModule,
     UsersModule,
     VaultsModule,
@@ -104,8 +111,14 @@ import { CreateFarmVaults1700000000008 } from './database/migrations/17000000000
     AdminModule,
     ExportModule,
     FarmVaultsModule,
+    RealtimeModule,
+    LoggerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+  }
+}

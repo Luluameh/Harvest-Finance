@@ -12,6 +12,7 @@ import {
 import { User } from './user.entity';
 import { Deposit } from './deposit.entity';
 
+
 /**
  * Vault types for different agricultural investment categories
  */
@@ -118,31 +119,22 @@ export class Vault {
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
-  // Relationships
-  
-  /** Owner of the vault */
-  @ManyToOne(() => User, (user) => user.id, { onDelete: 'CASCADE' })
+  @ManyToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'owner_id' })
   owner: User;
 
-  /** All deposits made to this vault */
   @OneToMany(() => Deposit, (deposit) => deposit.vault)
   deposits: Deposit[];
 
-  // Computed properties
-  
-  /** Calculate available capacity */
   get availableCapacity(): number {
     return Number(this.maxCapacity) - Number(this.totalDeposits);
   }
 
-  /** Calculate utilization percentage */
   get utilizationPercentage(): number {
     if (Number(this.maxCapacity) === 0) return 0;
     return (Number(this.totalDeposits) / Number(this.maxCapacity)) * 100;
   }
 
-  /** Check if vault is at full capacity */
   get isFullCapacity(): boolean {
     return Number(this.totalDeposits) >= Number(this.maxCapacity);
   }

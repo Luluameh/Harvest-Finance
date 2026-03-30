@@ -1,19 +1,10 @@
 'use client';
 
 import React from 'react';
-import { 
-  Card, 
-  CardHeader, 
-  CardBody, 
-  Button, 
-  Badge,
-  Stack,
-  Inline,
-  Section
-} from '@/components/ui';
+import { Card, CardHeader, CardBody, Button, Badge, Stack, Inline, Section } from '@/components/ui';
 import { Wallet, TrendingUp, PieChart, Download, ArrowRight } from 'lucide-react';
 import { useAuthStore } from '@/lib/stores/auth-store';
-import axios from 'axios';
+import axios from '@/lib/api-client';
 
 export default function PortfolioPage() {
   const { user, token } = useAuthStore();
@@ -26,7 +17,7 @@ export default function PortfolioPage() {
     try {
       const response = await axios.get(
         `http://localhost:3001/api/v1/export/users/${user.id}/transactions`,
-        {kk
+        {
           params: { format },
           headers: { Authorization: `Bearer ${token}` },
           responseType: 'blob',
