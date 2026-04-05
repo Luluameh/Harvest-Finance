@@ -1,3 +1,25 @@
+ feat/withdraw-api
+import { Controller, Post, Body, Param, ParseUUIDPipe, UseGuards } from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { VaultsService } from './vaults.service';
+import { WithdrawDto } from './dto/withdraw.dto';
+
+@ApiTags('Vaults')
+@Controller('vaults')
+export class VaultsController {
+  constructor(private readonly vaultsService: VaultsService) {}
+
+  @Post(':vaultId/withdraw')
+  @ApiOperation({ summary: 'Withdraw tokens from a vault' })
+  @ApiResponse({ status: 201, description: 'Withdrawal successful' })
+  @ApiResponse({ status: 400, description: 'Invalid input or insufficient balance/liquidity' })
+  @ApiResponse({ status: 404, description: 'Vault or user deposit not found' })
+  async withdraw(
+    @Param('vaultId', ParseUUIDPipe) vaultId: string,
+    @Body() withdrawDto: WithdrawDto,
+  ) {
+    return this.vaultsService.withdraw(vaultId, withdrawDto);
+=======
 import {
   Controller,
   Post,
@@ -17,11 +39,12 @@ import {
   ApiParam,
   ApiBody,
 } from '@nestjs/swagger';
+import { Throttle } from '@nestjs/throttler';
 import { VaultsService } from './vaults.service';
 import { DepositDto } from './dto/deposit.dto';
-import { 
-  DepositVaultResponseDto, 
-  VaultResponseDto 
+import {
+  DepositVaultResponseDto,
+  VaultResponseDto,
 } from './dto/vault-response.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
@@ -36,6 +59,7 @@ export class VaultsController {
    * Deposit funds into a vault
    */
   @Post(':vaultId/deposit')
+  @Throttle({ default: { limit: 20, ttl: 60000 } })
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Deposit funds into a vault' })
   @ApiParam({
@@ -79,6 +103,7 @@ export class VaultsController {
    * Withdraw funds from a vault
    */
   @Post(':vaultId/withdraw')
+  @Throttle({ default: { limit: 20, ttl: 60000 } })
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Withdraw funds from a vault' })
   @ApiParam({
@@ -181,5 +206,6 @@ export class VaultsController {
   })
   async getPublicVaults(): Promise<VaultResponseDto[]> {
     return this.vaultsService.getPublicVaults();
+main
   }
 }
