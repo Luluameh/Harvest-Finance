@@ -459,7 +459,6 @@ input {
       border-color: rgba(74, 222, 128, 0.1);
     }
   }
-}
 
   .no-scrollbar::-webkit-scrollbar {
     display: none;

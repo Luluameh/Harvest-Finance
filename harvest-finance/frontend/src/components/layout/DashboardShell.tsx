@@ -25,8 +25,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
             <button
               type="button"
               onClick={() => setIsMobileNavOpen(true)}
-           className="rounded-md p-2 text-gray-500 dark:text-gray-400 transition hover:bg-gray-100 dark:hover:bg-[#1a3020] hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-harvest-green-500 focus:ring-offset-2"
-aria-label="Open dashboard navigation"
+              className="rounded-md p-2 text-gray-500 dark:text-gray-400 transition hover:bg-gray-100 dark:hover:bg-[#1a3020] hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-harvest-green-500 focus:ring-offset-2"
               aria-label="Open dashboard navigation"
               aria-expanded={isMobileNavOpen}
             >
@@ -36,7 +35,7 @@ aria-label="Open dashboard navigation"
         </header>
 
      
-   <header className="hidden h-16 items-center justify-between border-b border-gray-200 dark:border-[rgba(141,187,85,0.15)] bg-white px-4 md:px-8 md:flex">
+        <header className="hidden h-16 items-center justify-between border-b border-gray-200 dark:border-[rgba(141,187,85,0.15)] bg-white dark:bg-[#162a1a] px-4 md:px-8 md:flex">
   <div className="flex-1 max-w-md">
     <div className="relative">
       <label htmlFor="dashboard-search" className="sr-only">
@@ -57,16 +56,11 @@ aria-label="Open dashboard navigation"
             <ThemeToggle />
             <NotificationCenter />
             <div className="h-8 w-px bg-gray-200 dark:bg-[rgba(141,187,85,0.2)]" aria-hidden="true" />
-<button
-  className="flex items-center gap-3 rounded-full p-1 transition-colors hover:bg-gray-50 dark:hover:bg-[#1a3020] focus:outline-none focus:ring"
-  aria-label="User menu"
->
-  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-harvest-green-100 dark:bg-harvest-green-900 text-harvest-green-700">
             <button
-              className="flex items-center gap-3 rounded-full p-1 transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-harvest-green-500 focus:ring-offset-2"
+              className="flex items-center gap-3 rounded-full p-1 transition-colors hover:bg-gray-50 dark:hover:bg-[#1a3020] focus:outline-none focus:ring-2 focus:ring-harvest-green-500 focus:ring-offset-2"
               aria-label="User menu"
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-harvest-green-100 text-harvest-green-700">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-harvest-green-100 dark:bg-harvest-green-900 text-harvest-green-700 dark:text-harvest-green-300">
                 <UserIcon className="h-5 w-5" />
               </div>
             </button>
@@ -93,8 +87,7 @@ aria-label="Open dashboard navigation"
                 <button
                   type="button"
                   onClick={() => setIsMobileNavOpen(false)}
-               className="rounded-md p-2 text-gray-500 dark:text-gray-400 transition hover:bg-gray-100 dark:hover:bg-[#1a3020] hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-harvest-green-500 focus:ring-offset-2"
-aria-label="Close dashboard navigation"
+                  className="rounded-md p-2 text-gray-500 dark:text-gray-400 transition hover:bg-gray-100 dark:hover:bg-[#1a3020] hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-harvest-green-500 focus:ring-offset-2"
                   aria-label="Close dashboard navigation"
                 >
                   <X className="h-5 w-5" />
@@ -108,8 +101,7 @@ aria-label="Close dashboard navigation"
                       key={item.href}
                       href={item.href}
                       onClick={() => setIsMobileNavOpen(false)}
-       className="flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 transition hover:bg-harvest-green-50 dark:hover:bg-[#1a3020] hover:text-harvest-green-700 dark:hover:text-harvest-green-300 focus:outline-none focus:bg-harvest-green-50 focus:text-harvest-green-700"
->
+                      className="flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 transition hover:bg-harvest-green-50 dark:hover:bg-[#1a3020] hover:text-harvest-green-700 dark:hover:text-harvest-green-300 focus:outline-none focus:bg-harvest-green-50 focus:text-harvest-green-700"
                     >
                       <Icon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                       {item.label}

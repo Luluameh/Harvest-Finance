@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { 
   Bot, 
   Database, 
@@ -239,10 +239,13 @@ export default function DashboardPage() {
           <Badge variant="primary" className="mb-2 w-fit">
             Farm Vault Dashboard
           </Badge>
-      <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white md:text-4xl">
-  Mobile-ready farming intelligence
-</h1>
-<p className="mt-2 max-w-3xl text-sm md:text-base text-gray-600 dark:text-gray-400">
+          <h1 className="text-2xl md:text-4xl font-bold text-gray-900 dark:text-white">
+            Mobile-ready farming intelligence
+          </h1>
+          <p className="mt-2 max-w-3xl text-sm md:text-base text-gray-600 dark:text-gray-400">
+            Track vault health, request crop suggestions, explore live regional
+            activity, and keep working even when the network drops.
+          </p>
         </div>
         <div className="flex flex-wrap gap-3">
           <Button
