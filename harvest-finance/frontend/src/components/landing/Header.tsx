@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
-import { Button, Container, Inline } from '@/components/ui';
+import { Button, Container, Inline, ThemeToggle } from '@/components/ui';
 import { Leaf, Menu } from 'lucide-react';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
 
@@ -29,6 +29,7 @@ export const Header = () => {
           </nav>
 
           <Inline className="hidden md:flex">
+            <ThemeToggle />
             <Button variant="outline" className="border-harvest-green-200 text-harvest-green-700 hover:bg-harvest-green-50">
               {t('landing.header.login')}
             </Button>
@@ -40,9 +41,12 @@ export const Header = () => {
             <LanguageSwitcher />
           </Inline>
 
-          <button className="md:hidden p-2 text-zinc-600 dark:text-zinc-400">
-            <Menu className="w-6 h-6" />
-          </button>
+          <Inline className="md:hidden">
+            <ThemeToggle />
+            <button className="p-2 text-zinc-600 dark:text-zinc-400">
+              <Menu className="w-6 h-6" />
+            </button>
+          </Inline>
         </div>
       </Container>
     </header>
