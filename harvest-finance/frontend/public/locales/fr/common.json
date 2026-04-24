@@ -161,6 +161,11 @@
     "data_type": "Type de données",
     "all": "Tout",
     "loading": "Chargement...",
+    "date": "Date",
+    "type": "Type",
+    "amount": "Montant",
+    "status": "Statut",
+    "load_more": "Charger plus",
     "success": "Succès",
     "error": "Erreur",
     "search": "Rechercher",
@@ -192,7 +197,15 @@
     "overview_title": "Aperçu du Portefeuille",
     "overview_desc": "Suivez vos actifs, vos gains et vos performances sur tous les coffres Harvest.",
     "transaction_history": "Historique des transactions",
-    "transaction_desc": "Un journal détaillé de vos dépôts, retraits et demandes de récompenses."
+    "transaction_desc": "Un journal détaillé de vos dépôts, retraits et demandes de récompenses.",
+    "overview": {
+      "total_deposited": "Total Déposé",
+      "assets_in_vaults": "Actifs dans les coffres",
+      "total_rewards": "Total des Récompenses",
+      "earned_yields": "Gagné grâce aux rendements",
+      "portfolio_value": "Valeur du Portefeuille",
+      "current_balance": "Solde total actuel"
+    }
   },
   "modals": {
     "deposit_title": "Déposer des fonds",

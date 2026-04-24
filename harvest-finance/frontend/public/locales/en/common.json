@@ -161,6 +161,11 @@
     "data_type": "Data Type",
     "all": "All",
     "loading": "Loading...",
+    "date": "Date",
+    "type": "Type",
+    "amount": "Amount",
+    "status": "Status",
+    "load_more": "Load More",
     "success": "Success",
     "error": "Error",
     "search": "Search",
@@ -192,7 +197,15 @@
     "overview_title": "Portfolio Overview",
     "overview_desc": "Track your assets, earnings, and performance across all Harvest vaults.",
     "transaction_history": "Transaction History",
-    "transaction_desc": "A detailed log of your deposits, withdrawals, and reward claims."
+    "transaction_desc": "A detailed log of your deposits, withdrawals, and reward claims.",
+    "overview": {
+      "total_deposited": "Total Deposited",
+      "assets_in_vaults": "Assets in vaults",
+      "total_rewards": "Total Rewards",
+      "earned_yields": "Earned from yields",
+      "portfolio_value": "Portfolio Value",
+      "current_balance": "Current total balance"
+    }
   },
   "modals": {
     "deposit_title": "Deposit Funds",

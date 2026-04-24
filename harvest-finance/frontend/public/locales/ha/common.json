@@ -161,6 +161,11 @@
     "data_type": "Nau'in bayanai",
     "all": "Duka",
     "loading": "Yana lodawa...",
+    "date": "Kwanan wata",
+    "type": "Nau'i",
+    "amount": "Adadi",
+    "status": "Matsayi",
+    "load_more": "Sake duba wasu",
     "success": "Nasarar",
     "error": "Kuskure",
     "search": "Bincika",
@@ -192,7 +197,15 @@
     "overview_title": "Duban Portfolio",
     "overview_desc": "Bi diddigin kadarorinku, abubuwan da kuka samu, da ayyukanku a duk taskokin Harvest.",
     "transaction_history": "Tarihin Ma'amaloli",
-    "transaction_desc": "Cikakken tarihin ajiyar ku, cire kudi, da ladubban da kuka nema."
+    "transaction_desc": "Cikakken tarihin ajiyar ku, cire kudi, da ladubban da kuka nema.",
+    "overview": {
+      "total_deposited": "Adadin Ajiya",
+      "assets_in_vaults": "Kadarori a taskoki",
+      "total_rewards": "Adadin Ladubba",
+      "earned_yields": "An samu daga amfani",
+      "portfolio_value": "Darajar Portfolio",
+      "current_balance": "Ma'auna na yanzu"
+    }
   },
   "modals": {
     "deposit_title": "Ajiye Kudi",
